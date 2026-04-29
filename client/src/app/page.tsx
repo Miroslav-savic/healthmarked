@@ -21,16 +21,16 @@ function CategoryCard({ cat }: { cat: Category }) {
   return (
     <Link
       href={`/${cat.slug}`}
-      className="group flex flex-col gap-3 p-6 rounded-2xl border border-gray-100 bg-white hover:border-emerald-300 hover:shadow-lg transition-all duration-200"
+      className="group flex flex-col gap-4 p-6 rounded-2xl border border-emerald-100 bg-gradient-to-br from-emerald-50 to-white hover:border-emerald-300 hover:shadow-lg hover:from-emerald-100 transition-all duration-200"
     >
-      <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-2xl group-hover:bg-emerald-100 transition-colors">
+      <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center text-3xl group-hover:scale-110 transition-transform duration-200">
         {cat.icon}
       </div>
       <div>
-        <h3 className="font-bold text-gray-900 mb-1">{cat.name}</h3>
+        <h3 className="font-bold text-gray-900 mb-1 text-base">{cat.name}</h3>
         <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed">{cat.description}</p>
       </div>
-      <span className="text-xs text-emerald-600 font-medium group-hover:underline mt-auto">
+      <span className="text-xs text-emerald-600 font-semibold group-hover:underline mt-auto">
         Browse articles →
       </span>
     </Link>
@@ -81,8 +81,8 @@ export default async function HomePage() {
             Medically reviewed by board-certified physicians
           </div>
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight tracking-tight">
-            Health Information<br />
-            <span className="text-emerald-300">You Can Trust</span>
+            Medical Answers,<br />
+            <span className="text-emerald-300">Not Guesses</span>
           </h1>
           <p className="text-lg md:text-xl text-emerald-100 max-w-2xl mx-auto mb-10 leading-relaxed">
             Evidence-based articles across cardiology, oncology, neurology, nutrition, and more — all cited from peer-reviewed research.
@@ -141,12 +141,7 @@ export default async function HomePage() {
 
         {/* Categories */}
         <section>
-          <div className="flex items-end justify-between mb-8">
-            <div>
-              <p className="text-sm text-emerald-600 font-semibold uppercase tracking-wide mb-1">Explore</p>
-              <h2 className="text-3xl font-bold text-gray-900">Browse by Specialty</h2>
-            </div>
-          </div>
+          <h2 className="text-3xl font-bold text-gray-900 mb-8">Browse by Specialty</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {categories.map((cat) => (
               <CategoryCard key={cat._id} cat={cat} />
@@ -158,7 +153,6 @@ export default async function HomePage() {
         <section>
           <div className="flex items-end justify-between mb-8">
             <div>
-              <p className="text-sm text-emerald-600 font-semibold uppercase tracking-wide mb-1">Fresh Content</p>
               <h2 className="text-3xl font-bold text-gray-900">Latest Articles</h2>
             </div>
             <Link href="/search" className="text-sm text-emerald-600 font-medium hover:underline hidden md:block">

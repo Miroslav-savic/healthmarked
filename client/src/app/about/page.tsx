@@ -11,27 +11,35 @@ export const metadata: Metadata = {
 
 const team = [
   {
+    id: 'dr-sarah-mitchell',
     name: 'Dr. Sarah Mitchell, MD',
     role: 'Medical Director & Chief Editor',
     credentials: 'Board-certified Internal Medicine physician. MD from Johns Hopkins University School of Medicine. 14 years of clinical practice.',
+    bio: 'Dr. Mitchell oversees all editorial content on HealthMarked, ensuring every article meets the highest standards of medical accuracy. She reviews articles across internal medicine, mental health, and general preventive health.',
     specialties: ['Internal Medicine', 'Preventive Health', 'Chronic Disease Management'],
   },
   {
+    id: 'dr-james-okafor',
     name: 'Dr. James Okafor, MD, PhD',
     role: 'Cardiology Advisor',
     credentials: 'Fellowship-trained cardiologist. MD/PhD from Harvard Medical School. Specialises in preventive cardiology and heart failure.',
+    bio: 'Dr. Okafor reviews all cardiology and cardiovascular content on HealthMarked. His research focuses on reducing heart disease risk through early intervention, lifestyle modification, and evidence-based pharmacotherapy.',
     specialties: ['Cardiology', 'Hypertension', 'Heart Failure'],
   },
   {
+    id: 'dr-elena-vasquez',
     name: 'Dr. Elena Vasquez, MD',
     role: 'Neurology Advisor',
     credentials: 'Board-certified neurologist. MD from Stanford University. Clinical focus on headache disorders, epilepsy, and cognitive neurology.',
+    bio: 'Dr. Vasquez reviews all neurology-related content, including articles on migraines, stroke, cognitive decline, and nervous system disorders. She is passionate about translating complex neurological science into accessible patient guidance.',
     specialties: ['Neurology', 'Headache Medicine', 'Cognitive Health'],
   },
   {
+    id: 'dr-priya-nair',
     name: 'Dr. Priya Nair, RD, PhD',
     role: 'Nutrition Science Advisor',
     credentials: 'Registered Dietitian and PhD in Nutritional Sciences from Cornell University. Research focus on diet-disease relationships.',
+    bio: 'Dr. Nair reviews all nutrition and metabolic health content. Her research examines how dietary patterns influence chronic disease risk, gut microbiome composition, and long-term metabolic outcomes.',
     specialties: ['Nutrition', 'Metabolic Health', 'Gut Microbiome'],
   },
 ];
@@ -73,21 +81,22 @@ export default function AboutPage() {
         <h2 className="text-2xl font-bold text-gray-900 mb-6">Our Medical Team</h2>
         <div className="grid md:grid-cols-2 gap-6">
           {team.map((member) => (
-            <div key={member.name} className="p-6 bg-white border border-gray-200 rounded-xl">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-lg flex-shrink-0">
-                  {member.name.split(' ')[1][0]}
+            <div key={member.name} id={member.id} className="p-6 bg-white border border-gray-200 rounded-xl scroll-mt-20">
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-14 h-14 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-xl flex-shrink-0">
+                  {member.name.split(' ')[1][0]}{member.name.split(' ')[member.name.split(' ').length - 1][0]}
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900">{member.name}</h3>
-                  <p className="text-sm text-emerald-600 font-medium mb-2">{member.role}</p>
-                  <p className="text-sm text-gray-600 mb-3">{member.credentials}</p>
-                  <div className="flex flex-wrap gap-1">
-                    {member.specialties.map((s) => (
-                      <span key={s} className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full">{s}</span>
-                    ))}
-                  </div>
+                  <h3 className="font-bold text-gray-900 text-base">{member.name}</h3>
+                  <p className="text-sm text-emerald-600 font-medium">{member.role}</p>
+                  <p className="text-xs text-gray-500 mt-0.5">{member.credentials}</p>
                 </div>
+              </div>
+              <p className="text-sm text-gray-600 leading-relaxed mb-3">{member.bio}</p>
+              <div className="flex flex-wrap gap-1">
+                {member.specialties.map((s) => (
+                  <span key={s} className="text-xs bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full border border-emerald-100">{s}</span>
+                ))}
               </div>
             </div>
           ))}

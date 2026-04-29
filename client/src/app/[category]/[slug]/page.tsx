@@ -10,11 +10,41 @@ import type { Metadata } from 'next';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
-const REVIEWER = {
-  name: 'Dr. Sarah Mitchell, MD',
-  url: `${SITE_URL}/about`,
-  jobTitle: 'Medical Director & Chief Editor',
+const REVIEWERS: Record<string, { name: string; initials: string; jobTitle: string; credentials: string; anchor: string }> = {
+  cardiology: {
+    name: 'Dr. James Okafor, MD, PhD',
+    initials: 'JO',
+    jobTitle: 'Cardiology Advisor',
+    credentials: 'Fellowship-trained cardiologist · MD/PhD Harvard Medical School',
+    anchor: 'dr-james-okafor',
+  },
+  neurology: {
+    name: 'Dr. Elena Vasquez, MD',
+    initials: 'EV',
+    jobTitle: 'Neurology Advisor',
+    credentials: 'Board-certified neurologist · MD Stanford University',
+    anchor: 'dr-elena-vasquez',
+  },
+  nutrition: {
+    name: 'Dr. Priya Nair, RD, PhD',
+    initials: 'PN',
+    jobTitle: 'Nutrition Science Advisor',
+    credentials: 'Registered Dietitian · PhD Cornell University',
+    anchor: 'dr-priya-nair',
+  },
 };
+
+const DEFAULT_REVIEWER = {
+  name: 'Dr. Sarah Mitchell, MD',
+  initials: 'SM',
+  jobTitle: 'Medical Director & Chief Editor',
+  credentials: 'Board-certified Internal Medicine · MD Johns Hopkins',
+  anchor: 'dr-sarah-mitchell',
+};
+
+function getReviewer(categorySlug: string) {
+  return REVIEWERS[categorySlug] ?? DEFAULT_REVIEWER;
+}
 
 export async function generateMetadata(props: PageProps<'/[category]/[slug]'>): Promise<Metadata> {
   const { category: categorySlug, slug } = await props.params;
@@ -59,6 +89,8 @@ export default async function ArticlePage(props: PageProps<'/[category]/[slug]'>
     notFound();
   }
 
+  const reviewer = getReviewer(categorySlug);
+
   const [relatedPosts, processedContent] = await Promise.all([
     getRelatedPosts(categorySlug, slug, 3),
     Promise.resolve(injectHeadingIds(post.content)),
@@ -93,18 +125,18 @@ export default async function ArticlePage(props: PageProps<'/[category]/[slug]'>
     inLanguage: 'en-US',
     author: {
       '@type': 'Organization',
-      name: 'HealthBlog Editorial Team',
+      name: 'HealthMarked Editorial Team',
       url: `${SITE_URL}/about`,
     },
     reviewedBy: {
       '@type': 'Person',
-      name: REVIEWER.name,
-      url: REVIEWER.url,
-      jobTitle: REVIEWER.jobTitle,
+      name: reviewer.name,
+      url: `${SITE_URL}/about#${reviewer.anchor}`,
+      jobTitle: reviewer.jobTitle,
     },
     publisher: {
       '@type': 'Organization',
-      name: 'HealthBlog',
+      name: 'HealthMarked',
       url: SITE_URL,
       logo: {
         '@type': 'ImageObject',
@@ -118,7 +150,7 @@ export default async function ArticlePage(props: PageProps<'/[category]/[slug]'>
     about: { '@type': 'MedicalCondition', name: post.category.name },
     audience: { '@type': 'MedicalAudience', audienceType: 'patient' },
     medicalAudience: { '@type': 'MedicalAudience', audienceType: 'patient' },
-    isPartOf: { '@type': 'WebSite', name: 'HealthBlog', url: SITE_URL },
+    isPartOf: { '@type': 'WebSite', name: 'HealthMarked', url: SITE_URL },
   };
 
   return (
@@ -172,17 +204,22 @@ export default async function ArticlePage(props: PageProps<'/[category]/[slug]'>
         <p className="text-lg text-gray-500 leading-relaxed">{post.excerpt}</p>
 
         {/* Byline — Medically Reviewed */}
-        <div className="flex items-center gap-3 mt-5 pt-5 border-t border-gray-100">
-          <div className="w-9 h-9 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-sm flex-shrink-0">
-            SM
+        <div className="flex items-start gap-3 mt-5 pt-5 border-t border-gray-100">
+          <div className="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-sm flex-shrink-0">
+            {reviewer.initials}
           </div>
-          <div className="text-xs text-gray-500 leading-tight">
-            <p>
+          <div className="text-xs text-gray-500 leading-snug">
+            <p className="mb-0.5">
               <span className="text-gray-400">Medically reviewed by </span>
-              <Link href="/about" className="font-semibold text-gray-700 hover:text-emerald-600">
-                {REVIEWER.name}
+              <Link
+                href={`/about#${reviewer.anchor}`}
+                className="font-semibold text-gray-800 hover:text-emerald-600"
+              >
+                {reviewer.name}
               </Link>
+              <span className="text-gray-400"> — {reviewer.jobTitle}</span>
             </p>
+            <p className="text-gray-400 mb-0.5">{reviewer.credentials}</p>
             <p className="text-gray-400">
               Published{' '}
               <time dateTime={post.createdAt}>

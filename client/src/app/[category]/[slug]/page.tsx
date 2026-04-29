@@ -1,9 +1,11 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getPostBySlug } from '@/lib/api';
+import { getPostBySlug, getRelatedPosts } from '@/lib/api';
 import ViewTracker from '@/components/ViewTracker';
 import CommentSection from '@/components/CommentSection';
 import MedicalDisclaimer from '@/components/MedicalDisclaimer';
+import TableOfContents from '@/components/TableOfContents';
+import { injectHeadingIds } from '@/lib/headings';
 import type { Metadata } from 'next';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
@@ -56,6 +58,11 @@ export default async function ArticlePage(props: PageProps<'/[category]/[slug]'>
   } catch {
     notFound();
   }
+
+  const [relatedPosts, processedContent] = await Promise.all([
+    getRelatedPosts(categorySlug, slug, 3),
+    Promise.resolve(injectHeadingIds(post.content)),
+  ]);
 
   const pageUrl = `${SITE_URL}/${categorySlug}/${slug}`;
   const categoryUrl = `${SITE_URL}/${categorySlug}`;
@@ -194,10 +201,13 @@ export default async function ArticlePage(props: PageProps<'/[category]/[slug]'>
         </div>
       </header>
 
+      {/* Table of Contents */}
+      <TableOfContents html={processedContent} />
+
       {/* Content */}
       <article
         className="prose"
-        dangerouslySetInnerHTML={{ __html: post.content }}
+        dangerouslySetInnerHTML={{ __html: processedContent }}
       />
 
       {/* Medical Disclaimer */}
@@ -227,7 +237,28 @@ export default async function ArticlePage(props: PageProps<'/[category]/[slug]'>
       {/* Comments */}
       <CommentSection slug={slug} />
 
-      <div className="mt-10 pt-6 border-t border-gray-200">
+      {/* Related Articles */}
+      {relatedPosts.length > 0 && (
+        <section className="mt-10 pt-8 border-t border-gray-200">
+          <h2 className="text-lg font-bold text-gray-900 mb-4">Related Articles</h2>
+          <div className="grid sm:grid-cols-3 gap-4">
+            {relatedPosts.map((related) => (
+              <Link
+                key={related._id}
+                href={`/${related.category.slug}/${related.slug}`}
+                className="group flex flex-col gap-2 p-4 rounded-xl border border-gray-100 hover:border-emerald-300 hover:shadow-sm transition-all duration-200"
+              >
+                <h3 className="text-sm font-semibold text-gray-800 leading-snug line-clamp-3 group-hover:text-emerald-700 transition-colors">
+                  {related.title}
+                </h3>
+                <span className="text-xs text-gray-400 mt-auto">{related.readTime} min read</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <div className="mt-8 pt-6 border-t border-gray-200">
         <Link href={`/${categorySlug}`} className="text-sm text-emerald-600 hover:underline">
           ← Back to {post.category.name}
         </Link>

@@ -29,6 +29,32 @@ const getPostsData = (catMap) => [
   ...moreSymptomArticles(catMap),
 ];
 
+// Spread posts across the past 12 months with realistic publication cadence
+function assignDates(posts) {
+  const now = new Date('2026-04-29T12:00:00Z');
+  const twelveMonthsAgo = new Date('2025-04-15T10:00:00Z');
+  const rangeMs = now - twelveMonthsAgo;
+
+  // Use deterministic spacing so re-seeding produces the same dates
+  return posts.map((post, i) => {
+    const fraction = i / (posts.length - 1);
+    const baseMs = twelveMonthsAgo.getTime() + fraction * rangeMs;
+    // Add a small per-post offset (0–3 days) based on index to break uniform spacing
+    const jitterMs = ((i * 7919) % (3 * 24 * 60 * 60 * 1000));
+    const createdAt = new Date(baseMs + jitterMs);
+
+    // ~30% of articles have an updatedAt 2-8 weeks after publish
+    let updatedAt;
+    if (i % 3 === 0) {
+      const weeksMs = (2 + (i % 7)) * 7 * 24 * 60 * 60 * 1000;
+      const candidate = new Date(createdAt.getTime() + weeksMs);
+      updatedAt = candidate < now ? candidate : undefined;
+    }
+
+    return { ...post, createdAt, ...(updatedAt ? { updatedAt } : {}) };
+  });
+}
+
 async function seed() {
   try {
     await mongoose.connect(MONGODB_URI);
@@ -45,7 +71,7 @@ async function seed() {
     cats.forEach((c) => { catMap[c.slug] = c._id; });
     console.log(`✅ Inserted ${cats.length} categories`);
 
-    const postsData = getPostsData(catMap);
+    const postsData = assignDates(getPostsData(catMap));
     const posts = await Post.insertMany(postsData);
     console.log(`✅ Inserted ${posts.length} posts`);
 

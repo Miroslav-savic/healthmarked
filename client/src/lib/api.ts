@@ -93,6 +93,13 @@ export async function getLatestPosts(limit = 6): Promise<PostSummary[]> {
   return data.posts;
 }
 
+export async function getRelatedPosts(categorySlug: string, excludeSlug: string, limit = 3): Promise<PostSummary[]> {
+  const res = await fetch(`${API}/posts/category/${categorySlug}?limit=10`, { next: { revalidate: 300 } });
+  if (!res.ok) return [];
+  const data = await res.json();
+  return (data.posts as PostSummary[]).filter((p) => p.slug !== excludeSlug).slice(0, limit);
+}
+
 export async function getPostBySlug(slug: string): Promise<Post> {
   const res = await fetch(`${API}/posts/${slug}`, { next: { revalidate: 300 } });
   if (!res.ok) throw new Error('Post not found');

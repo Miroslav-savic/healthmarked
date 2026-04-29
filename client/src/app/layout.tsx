@@ -6,8 +6,8 @@ import './globals.css';
 const geist = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-const SITE_NAME = 'HealthBlog';
-const SITE_DESC = 'Evidence-based health articles written by medical experts across cardiology, oncology, nutrition, neurology, and more.';
+const SITE_NAME = 'HealthMarked';
+const SITE_DESC = 'Evidence-based health articles reviewed by board-certified physicians across cardiology, oncology, nutrition, neurology, and more.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -36,7 +36,7 @@ function Navbar() {
     <header className="border-b border-gray-200 bg-white sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         <Link href="/" className="text-xl font-bold text-emerald-600 tracking-tight">
-          HealthBlog
+          HealthMarked
         </Link>
         <nav className="flex items-center gap-6 text-sm text-gray-600">
           <Link href="/" className="hover:text-emerald-600 transition-colors">Home</Link>
@@ -56,7 +56,7 @@ function Footer() {
       <div className="max-w-6xl mx-auto px-4 py-10">
         <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div>
-            <p className="font-bold text-emerald-600 text-lg mb-2">HealthBlog</p>
+            <p className="font-bold text-emerald-600 text-lg mb-2">HealthMarked</p>
             <p className="text-sm text-gray-500 leading-relaxed">
               Evidence-based health information reviewed by board-certified physicians. For informational purposes only — not a substitute for professional medical advice.
             </p>

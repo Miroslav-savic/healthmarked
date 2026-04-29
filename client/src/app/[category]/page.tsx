@@ -16,13 +16,13 @@ export async function generateMetadata(props: PageProps<'/[category]'>): Promise
       description: cat.description,
       alternates: { canonical: url },
       openGraph: {
-        title: `${cat.name} | HealthBlog`,
+        title: `${cat.name} | HealthMarked`,
         description: cat.description,
         url,
         type: 'website',
       },
       twitter: {
-        title: `${cat.name} | HealthBlog`,
+        title: `${cat.name} | HealthMarked`,
         description: cat.description,
       },
     };
@@ -54,6 +54,7 @@ export default async function CategoryPage(props: PageProps<'/[category]'>) {
     const breadcrumbSchema = {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}#breadcrumb`,
       itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
         { '@type': 'ListItem', position: 2, name: category.name, item: pageUrl },

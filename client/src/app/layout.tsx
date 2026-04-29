@@ -18,10 +18,16 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     type: 'website',
     locale: 'en_US',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: SITE_NAME }],
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@healthblog',
+    site: '@healthmarked',
+    images: ['/opengraph-image'],
+  },
+  icons: {
+    icon: '/icon.svg',
+    apple: '/apple-icon.svg',
   },
 };
 

@@ -120,17 +120,17 @@ export default async function HomePage() {
 
       {/* Trust Bar */}
       <section className="bg-white border-b border-gray-100">
-        <div className="max-w-6xl mx-auto px-4 py-5">
-          <div className="flex flex-wrap items-center justify-center gap-8 text-sm text-gray-500">
+        <div className="max-w-6xl mx-auto px-4 py-4">
+          <div className="grid grid-cols-2 md:flex md:flex-wrap items-center justify-center gap-3 md:gap-8 text-sm text-gray-500">
             {[
               { icon: '⚕️', text: 'Medically Reviewed' },
               { icon: '📚', text: 'Peer-Reviewed Sources' },
               { icon: '✅', text: 'Evidence-Based' },
               { icon: '🔄', text: 'Regularly Updated' },
             ].map((item) => (
-              <div key={item.text} className="flex items-center gap-2">
+              <div key={item.text} className="flex items-center gap-2 justify-center md:justify-start">
                 <span>{item.icon}</span>
-                <span className="font-medium text-gray-600">{item.text}</span>
+                <span className="font-medium text-gray-600 text-xs md:text-sm">{item.text}</span>
               </div>
             ))}
           </div>

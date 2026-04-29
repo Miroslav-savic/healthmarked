@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist } from 'next/font/google';
 import Link from 'next/link';
+import MobileMenu from '@/components/MobileMenu';
 import './globals.css';
 
 const geist = Geist({ variable: '--font-geist-sans', subsets: ['latin'] });
@@ -34,16 +35,19 @@ export const metadata: Metadata = {
 function Navbar() {
   return (
     <header className="border-b border-gray-200 bg-white sticky top-0 z-50">
-      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between relative">
         <Link href="/" className="text-xl font-bold text-emerald-600 tracking-tight">
           HealthMarked
         </Link>
-        <nav className="flex items-center gap-6 text-sm text-gray-600">
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center gap-6 text-sm text-gray-600">
           <Link href="/" className="hover:text-emerald-600 transition-colors">Home</Link>
           <Link href="/search" className="hover:text-emerald-600 transition-colors">Search</Link>
           <Link href="/about" className="hover:text-emerald-600 transition-colors">About</Link>
           <Link href="/contact" className="hover:text-emerald-600 transition-colors">Contact</Link>
         </nav>
+        {/* Mobile hamburger */}
+        <MobileMenu />
       </div>
     </header>
   );
@@ -85,7 +89,7 @@ function Footer() {
           </div>
         </div>
         <div className="border-t border-gray-200 pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-gray-400">
-          <p>© {year} HealthBlog. All rights reserved.</p>
+          <p>© {year} HealthMarked. All rights reserved.</p>
           <p>Content is for informational purposes only. Always consult a healthcare professional.</p>
         </div>
       </div>

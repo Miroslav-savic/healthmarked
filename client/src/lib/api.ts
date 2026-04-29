@@ -33,6 +33,7 @@ export interface Post extends PostSummary {
   metaDescription: string;
   sources: string[];
   isPublished: boolean;
+  updatedAt: string;
 }
 
 export interface Pagination {

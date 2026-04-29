@@ -4,8 +4,8 @@ import Link from 'next/link';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 export const metadata: Metadata = {
-  title: 'About HealthBlog',
-  description: 'HealthBlog publishes evidence-based health articles reviewed by medical professionals. Learn about our editorial standards and medical review process.',
+  title: 'About Us',
+  description: 'HealthMarked publishes evidence-based health articles reviewed by board-certified physicians. Learn about our editorial standards and medical review process.',
   alternates: { canonical: `${SITE_URL}/about` },
 };
 

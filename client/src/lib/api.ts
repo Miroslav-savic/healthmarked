@@ -1,4 +1,7 @@
-const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api';
+// Server components use internal URL; browser uses public URL
+const API = typeof window === 'undefined'
+  ? (process.env.API_URL || 'http://localhost:5001/api')
+  : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api');
 
 export interface Category {
   _id: string;

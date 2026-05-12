@@ -122,10 +122,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${geist.variable} h-full antialiased`}>
       <head>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-M4D0NZRK0G" />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18025732613" />
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-M4D0NZRK0G');`,
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-M4D0NZRK0G');gtag('config','AW-18025732613');`,
           }}
         />
         <script

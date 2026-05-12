@@ -494,7 +494,7 @@ const evenMoreArticles = (catMap) => [
     excerpt: 'ADHD does not disappear in adulthood — it is underdiagnosed and frequently missed because it looks different to the hyperactive child stereotype. Understand the adult presentation, the diagnostic process, and the evidence-based treatments that work.',
     category: catMap['mental-health'],
     keywords: ['ADHD adults', 'adult ADHD symptoms', 'ADHD diagnosis', 'ADHD treatment', 'inattentive ADHD', 'ADHD medication', 'executive function ADHD'],
-    metaDescription: 'Adult ADHD: how it presents differently to childhood ADHD, the diagnostic criteria, and treatments including stimulant medications, CBT, and lifestyle strategies.',
+    metaDescription: 'Adult ADHD: how it presents differently to childhood ADHD, diagnostic criteria, and treatments including stimulants, CBT, and lifestyle strategies.',
     readTime: 9,
     sources: [
       'Kooij JJS et al. Updated European Consensus Statement on diagnosis and treatment of adult ADHD. Eur Psychiatry. 2019;56:14–34.',

@@ -105,7 +105,7 @@ export default async function HomePage() {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-6 max-w-lg mx-auto mt-14">
             {[
-              { value: '65+', label: 'Articles' },
+              { value: '75+', label: 'Articles' },
               { value: '8', label: 'Specialties' },
               { value: '4', label: 'Physicians' },
             ].map((stat) => (
@@ -175,7 +175,7 @@ export default async function HomePage() {
         <section className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-100 rounded-3xl p-10 text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-3">Looking for something specific?</h2>
           <p className="text-gray-500 mb-6 max-w-md mx-auto">
-            Search across all 65+ articles by symptom, condition, or keyword.
+            Search across all 75+ articles by symptom, condition, or keyword.
           </p>
           <Link
             href="/search"

@@ -7,6 +7,7 @@ const { outlineArticles } = require('./content/outlineArticles');
 const { symptomArticles } = require('./content/symptomArticles');
 const { moreArticles } = require('./content/moreArticles');
 const { moreSymptomArticles } = require('./content/moreSymptomArticles');
+const { evenMoreArticles } = require('./content/evenMoreArticles');
 
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/healthblog';
 
@@ -27,6 +28,7 @@ const getPostsData = (catMap) => [
   ...symptomArticles(catMap),
   ...moreArticles(catMap),
   ...moreSymptomArticles(catMap),
+  ...evenMoreArticles(catMap),
 ];
 
 // Spread posts across the past 12 months with realistic publication cadence
